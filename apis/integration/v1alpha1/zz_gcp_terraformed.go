@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -21,7 +25,7 @@ func (mg *GCP) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this GCP
 func (tr *GCP) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"private_key": "privateKeySecretRef"}
+	return map[string]string{"private_key": "spec.forProvider.privateKeySecretRef"}
 }
 
 // GetObservation of this GCP

@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -21,7 +25,7 @@ func (mg *GlobalVariable) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this GlobalVariable
 func (tr *GlobalVariable) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"value": "valueSecretRef"}
+	return map[string]string{"value": "spec.forProvider.valueSecretRef"}
 }
 
 // GetObservation of this GlobalVariable

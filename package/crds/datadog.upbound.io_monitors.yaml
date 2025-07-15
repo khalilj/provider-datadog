@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.16.0
   name: monitors.datadog.upbound.io
 spec:
   group: datadog.upbound.io
@@ -19,11 +19,11 @@ spec:
   scope: Cluster
   versions:
   - additionalPrinterColumns:
-    - jsonPath: .status.conditions[?(@.type=='Synced')].status
-      name: SYNCED
-      type: string
     - jsonPath: .status.conditions[?(@.type=='Ready')].status
       name: READY
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
       type: string
     - jsonPath: .metadata.annotations.crossplane\.io/external-name
       name: EXTERNAL-NAME
@@ -88,7 +88,6 @@ spec:
                       negative integer.
                       (Only applies to metric alert) Time (in seconds) to delay evaluation, as a non-negative integer.
 
-
                       For example, if the value is set to `300` (5min), the `timeframe` is set to `last_5m` and the time is 7:00, the monitor will evaluate data from 6:50 to 6:55. This is useful for AWS CloudWatch and other backfilled metrics to ensure the monitor will always have data during evaluation.
                     type: number
                   forceDelete:
@@ -120,7 +119,6 @@ spec:
                     description: |-
                       (String) A message to include with notifications for this monitor.
                       A message to include with notifications for this monitor.
-
 
                       Email notifications can be sent to specific users by using the same `@username` notation as events.
                     type: string
@@ -190,7 +188,6 @@ spec:
                       (Number) The time (in seconds) to skip evaluations for new groups.
                       The time (in seconds) to skip evaluations for new groups.
 
-
                       `new_group_delay` overrides `new_host_delay` if it is set to a nonzero value.
                     type: number
                   newHostDelay:
@@ -202,7 +199,6 @@ spec:
                     description: |-
                       (Number) The number of minutes before a monitor will notify when data stops reporting.
                       The number of minutes before a monitor will notify when data stops reporting.
-
 
                       We recommend at least 2x the monitor timeframe for metric alerts or 2 minutes for service checks. Defaults to `10`.
                     type: number
@@ -243,7 +239,6 @@ spec:
                     description: |-
                       (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
                       The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the [API Reference](https://docs.datadoghq.com/api/v1/monitors/#create-a-monitor) for details.
-
 
                       **Note:** APM latency data is now available as Distribution Metrics. We strongly recommend updating monitor definitions to query the new metrics.datadoghq.com/tracing/guide/ddsketch_trace_metrics/).
                     type: string
@@ -500,7 +495,6 @@ spec:
                       negative integer.
                       (Only applies to metric alert) Time (in seconds) to delay evaluation, as a non-negative integer.
 
-
                       For example, if the value is set to `300` (5min), the `timeframe` is set to `last_5m` and the time is 7:00, the monitor will evaluate data from 6:50 to 6:55. This is useful for AWS CloudWatch and other backfilled metrics to ensure the monitor will always have data during evaluation.
                     type: number
                   forceDelete:
@@ -532,7 +526,6 @@ spec:
                     description: |-
                       (String) A message to include with notifications for this monitor.
                       A message to include with notifications for this monitor.
-
 
                       Email notifications can be sent to specific users by using the same `@username` notation as events.
                     type: string
@@ -602,7 +595,6 @@ spec:
                       (Number) The time (in seconds) to skip evaluations for new groups.
                       The time (in seconds) to skip evaluations for new groups.
 
-
                       `new_group_delay` overrides `new_host_delay` if it is set to a nonzero value.
                     type: number
                   newHostDelay:
@@ -614,7 +606,6 @@ spec:
                     description: |-
                       (Number) The number of minutes before a monitor will notify when data stops reporting.
                       The number of minutes before a monitor will notify when data stops reporting.
-
 
                       We recommend at least 2x the monitor timeframe for metric alerts or 2 minutes for service checks. Defaults to `10`.
                     type: number
@@ -655,7 +646,6 @@ spec:
                     description: |-
                       (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
                       The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the [API Reference](https://docs.datadoghq.com/api/v1/monitors/#create-a-monitor) for details.
-
 
                       **Note:** APM latency data is now available as Distribution Metrics. We strongly recommend updating monitor definitions to query the new metrics.datadoghq.com/tracing/guide/ddsketch_trace_metrics/).
                     type: string
@@ -1093,7 +1083,6 @@ spec:
                       negative integer.
                       (Only applies to metric alert) Time (in seconds) to delay evaluation, as a non-negative integer.
 
-
                       For example, if the value is set to `300` (5min), the `timeframe` is set to `last_5m` and the time is 7:00, the monitor will evaluate data from 6:50 to 6:55. This is useful for AWS CloudWatch and other backfilled metrics to ensure the monitor will always have data during evaluation.
                     type: number
                   forceDelete:
@@ -1128,7 +1117,6 @@ spec:
                     description: |-
                       (String) A message to include with notifications for this monitor.
                       A message to include with notifications for this monitor.
-
 
                       Email notifications can be sent to specific users by using the same `@username` notation as events.
                     type: string
@@ -1198,7 +1186,6 @@ spec:
                       (Number) The time (in seconds) to skip evaluations for new groups.
                       The time (in seconds) to skip evaluations for new groups.
 
-
                       `new_group_delay` overrides `new_host_delay` if it is set to a nonzero value.
                     type: number
                   newHostDelay:
@@ -1210,7 +1197,6 @@ spec:
                     description: |-
                       (Number) The number of minutes before a monitor will notify when data stops reporting.
                       The number of minutes before a monitor will notify when data stops reporting.
-
 
                       We recommend at least 2x the monitor timeframe for metric alerts or 2 minutes for service checks. Defaults to `10`.
                     type: number
@@ -1251,7 +1237,6 @@ spec:
                     description: |-
                       (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
                       The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the [API Reference](https://docs.datadoghq.com/api/v1/monitors/#create-a-monitor) for details.
-
 
                       **Note:** APM latency data is now available as Distribution Metrics. We strongly recommend updating monitor definitions to query the new metrics.datadoghq.com/tracing/guide/ddsketch_trace_metrics/).
                     type: string

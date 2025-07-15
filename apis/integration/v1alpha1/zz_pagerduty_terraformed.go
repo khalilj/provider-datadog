@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -21,7 +25,7 @@ func (mg *Pagerduty) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this Pagerduty
 func (tr *Pagerduty) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"api_token": "apiTokenSecretRef"}
+	return map[string]string{"api_token": "spec.forProvider.apiTokenSecretRef"}
 }
 
 // GetObservation of this Pagerduty

@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.16.0
   name: tests.synthetics.datadog.upbound.io
 spec:
   group: synthetics.datadog.upbound.io
@@ -19,11 +19,11 @@ spec:
   scope: Cluster
   versions:
   - additionalPrinterColumns:
-    - jsonPath: .status.conditions[?(@.type=='Synced')].status
-      name: SYNCED
-      type: string
     - jsonPath: .status.conditions[?(@.type=='Ready')].status
       name: READY
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
       type: string
     - jsonPath: .metadata.annotations.crossplane\.io/external-name
       name: EXTERNAL-NAME
@@ -401,6 +401,8 @@ spec:
                                         (String) File name for the certificate.
                                         File name for the certificate.
                                       type: string
+                                  required:
+                                  - contentSecretRef
                                   type: object
                                 type: array
                               key:
@@ -432,6 +434,8 @@ spec:
                                         (String) File name for the certificate.
                                         File name for the certificate.
                                       type: string
+                                  required:
+                                  - contentSecretRef
                                   type: object
                                 type: array
                             type: object
@@ -1339,6 +1343,8 @@ spec:
                                   (String) File name for the certificate.
                                   File name for the certificate.
                                 type: string
+                            required:
+                            - contentSecretRef
                             type: object
                           type: array
                         key:
@@ -1370,6 +1376,8 @@ spec:
                                   (String) File name for the certificate.
                                   File name for the certificate.
                                 type: string
+                            required:
+                            - contentSecretRef
                             type: object
                           type: array
                       type: object
@@ -1719,25 +1727,6 @@ spec:
                             The HTTP basic authentication credentials. Exactly one nested block is allowed with the structure below.
                           items:
                             properties:
-                              accessKeySecretRef:
-                                description: |-
-                                  (String, Sensitive) Access key for SIGV4 authentication.
-                                  Access key for `SIGV4` authentication.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
                               accessTokenUrl:
                                 description: |-
                                   client or oauth-rop authentication.
@@ -1753,49 +1742,11 @@ spec:
                                   client or oauth-rop authentication.
                                   Client ID for `oauth-client` or `oauth-rop` authentication.
                                 type: string
-                              clientSecretSecretRef:
-                                description: |-
-                                  client or oauth-rop authentication.
-                                  Client secret for `oauth-client` or `oauth-rop` authentication.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
                               domain:
                                 description: |-
                                   (String) Domain for ntlm authentication.
                                   Domain for `ntlm` authentication.
                                 type: string
-                              passwordSecretRef:
-                                description: |-
-                                  (String, Sensitive) Password for authentication.
-                                  Password for authentication.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
                               region:
                                 description: |-
                                   (String) Region for SIGV4 authentication.
@@ -1811,25 +1762,6 @@ spec:
                                   client or oauth-rop authentication. Defaults to "".
                                   Scope for `oauth-client` or `oauth-rop` authentication. Defaults to `""`.
                                 type: string
-                              secretKeySecretRef:
-                                description: |-
-                                  (String, Sensitive) Secret key for SIGV4 authentication.
-                                  Secret key for `SIGV4` authentication.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
                               serviceName:
                                 description: |-
                                   (String) Service name for SIGV4 authentication.
@@ -1873,32 +1805,11 @@ spec:
                                   for nested schema)'
                                 items:
                                   properties:
-                                    contentSecretRef:
-                                      description: |-
-                                        (String, Sensitive) Content of the certificate.
-                                        Content of the certificate.
-                                      properties:
-                                        key:
-                                          description: The key to select.
-                                          type: string
-                                        name:
-                                          description: Name of the secret.
-                                          type: string
-                                        namespace:
-                                          description: Namespace of the secret.
-                                          type: string
-                                      required:
-                                      - key
-                                      - name
-                                      - namespace
-                                      type: object
                                     filename:
                                       description: |-
                                         (String) File name for the certificate.
                                         File name for the certificate.
                                       type: string
-                                  required:
-                                  - contentSecretRef
                                   type: object
                                 type: array
                               key:
@@ -1906,32 +1817,11 @@ spec:
                                   for nested schema)'
                                 items:
                                   properties:
-                                    contentSecretRef:
-                                      description: |-
-                                        (String, Sensitive) Content of the certificate.
-                                        Content of the certificate.
-                                      properties:
-                                        key:
-                                          description: The key to select.
-                                          type: string
-                                        name:
-                                          description: Name of the secret.
-                                          type: string
-                                        namespace:
-                                          description: Namespace of the secret.
-                                          type: string
-                                      required:
-                                      - key
-                                      - name
-                                      - namespace
-                                      type: object
                                     filename:
                                       description: |-
                                         (String) File name for the certificate.
                                         File name for the certificate.
                                       type: string
-                                  required:
-                                  - contentSecretRef
                                   type: object
                                 type: array
                             type: object
@@ -2661,25 +2551,6 @@ spec:
                       The HTTP basic authentication credentials. Exactly one nested block is allowed with the structure below.
                     items:
                       properties:
-                        accessKeySecretRef:
-                          description: |-
-                            (String, Sensitive) Access key for SIGV4 authentication.
-                            Access key for `SIGV4` authentication.
-                          properties:
-                            key:
-                              description: The key to select.
-                              type: string
-                            name:
-                              description: Name of the secret.
-                              type: string
-                            namespace:
-                              description: Namespace of the secret.
-                              type: string
-                          required:
-                          - key
-                          - name
-                          - namespace
-                          type: object
                         accessTokenUrl:
                           description: |-
                             client or oauth-rop authentication.
@@ -2695,49 +2566,11 @@ spec:
                             client or oauth-rop authentication.
                             Client ID for `oauth-client` or `oauth-rop` authentication.
                           type: string
-                        clientSecretSecretRef:
-                          description: |-
-                            client or oauth-rop authentication.
-                            Client secret for `oauth-client` or `oauth-rop` authentication.
-                          properties:
-                            key:
-                              description: The key to select.
-                              type: string
-                            name:
-                              description: Name of the secret.
-                              type: string
-                            namespace:
-                              description: Namespace of the secret.
-                              type: string
-                          required:
-                          - key
-                          - name
-                          - namespace
-                          type: object
                         domain:
                           description: |-
                             (String) Domain for ntlm authentication.
                             Domain for `ntlm` authentication.
                           type: string
-                        passwordSecretRef:
-                          description: |-
-                            (String, Sensitive) Password for authentication.
-                            Password for authentication.
-                          properties:
-                            key:
-                              description: The key to select.
-                              type: string
-                            name:
-                              description: Name of the secret.
-                              type: string
-                            namespace:
-                              description: Namespace of the secret.
-                              type: string
-                          required:
-                          - key
-                          - name
-                          - namespace
-                          type: object
                         region:
                           description: |-
                             (String) Region for SIGV4 authentication.
@@ -2753,25 +2586,6 @@ spec:
                             client or oauth-rop authentication. Defaults to "".
                             Scope for `oauth-client` or `oauth-rop` authentication. Defaults to `""`.
                           type: string
-                        secretKeySecretRef:
-                          description: |-
-                            (String, Sensitive) Secret key for SIGV4 authentication.
-                            Secret key for `SIGV4` authentication.
-                          properties:
-                            key:
-                              description: The key to select.
-                              type: string
-                            name:
-                              description: Name of the secret.
-                              type: string
-                            namespace:
-                              description: Namespace of the secret.
-                              type: string
-                          required:
-                          - key
-                          - name
-                          - namespace
-                          type: object
                         serviceName:
                           description: |-
                             (String) Service name for SIGV4 authentication.
@@ -2815,32 +2629,11 @@ spec:
                             nested schema)'
                           items:
                             properties:
-                              contentSecretRef:
-                                description: |-
-                                  (String, Sensitive) Content of the certificate.
-                                  Content of the certificate.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
                               filename:
                                 description: |-
                                   (String) File name for the certificate.
                                   File name for the certificate.
                                 type: string
-                            required:
-                            - contentSecretRef
                             type: object
                           type: array
                         key:
@@ -2848,32 +2641,11 @@ spec:
                             nested schema)'
                           items:
                             properties:
-                              contentSecretRef:
-                                description: |-
-                                  (String, Sensitive) Content of the certificate.
-                                  Content of the certificate.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
                               filename:
                                 description: |-
                                   (String) File name for the certificate.
                                   File name for the certificate.
                                 type: string
-                            required:
-                            - contentSecretRef
                             type: object
                           type: array
                       type: object

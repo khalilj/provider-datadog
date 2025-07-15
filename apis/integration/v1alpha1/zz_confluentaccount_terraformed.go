@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -21,7 +25,7 @@ func (mg *ConfluentAccount) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this ConfluentAccount
 func (tr *ConfluentAccount) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"api_secret": "apiSecretSecretRef"}
+	return map[string]string{"api_secret": "spec.forProvider.apiSecretSecretRef"}
 }
 
 // GetObservation of this ConfluentAccount

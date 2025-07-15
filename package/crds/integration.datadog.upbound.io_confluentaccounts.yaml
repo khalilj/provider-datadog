@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.16.0
   name: confluentaccounts.integration.datadog.upbound.io
 spec:
   group: integration.datadog.upbound.io
@@ -19,11 +19,11 @@ spec:
   scope: Cluster
   versions:
   - additionalPrinterColumns:
-    - jsonPath: .status.conditions[?(@.type=='Synced')].status
-      name: SYNCED
-      type: string
     - jsonPath: .status.conditions[?(@.type=='Ready')].status
       name: READY
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
       type: string
     - jsonPath: .metadata.annotations.crossplane\.io/external-name
       name: EXTERNAL-NAME
@@ -125,25 +125,6 @@ spec:
                       (String) The API key associated with your Confluent account.
                       The API key associated with your Confluent account.
                     type: string
-                  apiSecretSecretRef:
-                    description: |-
-                      (String, Sensitive) The API secret associated with your Confluent account.
-                      The API secret associated with your Confluent account.
-                    properties:
-                      key:
-                        description: The key to select.
-                        type: string
-                      name:
-                        description: Name of the secret.
-                        type: string
-                      namespace:
-                        description: Namespace of the secret.
-                        type: string
-                    required:
-                    - key
-                    - name
-                    - namespace
-                    type: object
                   tags:
                     description: |-
                       value pairs separated by a colon.
@@ -152,8 +133,6 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
-                required:
-                - apiSecretSecretRef
                 type: object
               managementPolicies:
                 default:

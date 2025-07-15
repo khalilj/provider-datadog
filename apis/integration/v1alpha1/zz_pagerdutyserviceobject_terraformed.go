@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -21,7 +25,7 @@ func (mg *PagerdutyServiceObject) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this PagerdutyServiceObject
 func (tr *PagerdutyServiceObject) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"service_key": "serviceKeySecretRef"}
+	return map[string]string{"service_key": "spec.forProvider.serviceKeySecretRef"}
 }
 
 // GetObservation of this PagerdutyServiceObject

@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -21,7 +25,7 @@ func (mg *CloudflareAccount) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this CloudflareAccount
 func (tr *CloudflareAccount) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"api_key": "apiKeySecretRef"}
+	return map[string]string{"api_key": "spec.forProvider.apiKeySecretRef"}
 }
 
 // GetObservation of this CloudflareAccount
